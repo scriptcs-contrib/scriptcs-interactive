@@ -21,6 +21,6 @@ Use scriptcs from within the C# Interactive Window in Visual Studio
 ## Usage
 ### Loading scriptcs interactive
 * Open Visual Studio 2015
-* In the C# Interactive Window type `#load "scriptcs.csx"
+* In the C# Interactive Window type `#load "scriptcs.csx"`
 
 
