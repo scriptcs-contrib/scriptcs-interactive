@@ -1,5 +1,6 @@
-#r "\src\scriptcs\src\ScriptCs.Hosting\bin\debug\ScriptCs.Hosting.dll"
-#r "\src\scriptcs\src\ScriptCs.Hosting\bin\debug\ScriptCs.Engine.Roslyn.dll"
+//Modify to change to a different scriptcs version
+#r ".\.svm\versions\0.15.0\ScriptCs.Hosting.dll"
+#r ".\.svm\versions\0.15.0\ScriptCs.Engine.Roslyn.dll"
 
 using System;
 using System.Collections.Generic;
