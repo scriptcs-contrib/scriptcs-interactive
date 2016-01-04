@@ -1,5 +1,3 @@
-// #r ".\.svm\versions\0.15.0\ScriptCs.Hosting.dll"
-// #r ".\.svm\versions\0.15.0\ScriptCs.Engine.Roslyn.dll"
 #r "\src\scriptcs\src\ScriptCs.Hosting\bin\debug\ScriptCs.Hosting.dll"
 #r "\src\scriptcs\src\ScriptCs.Hosting\bin\debug\ScriptCs.Engine.Roslyn.dll"
 
@@ -14,21 +12,22 @@ using ScriptCs.Contracts;
 using ScriptCs.Engine.Roslyn;
 using ScriptCs.Hosting;
 
+//necessary hack in order to prevent conflicts with the contracts assembly
 public class InteractiveHostAssemblyResolver : IAssemblyResolver {
-	private IAssemblyResolver _resolver;
+    private IAssemblyResolver _resolver;
 
-	public InteractiveHostAssemblyResolver(
+    public InteractiveHostAssemblyResolver(
             IFileSystem fileSystem,
             IPackageAssemblyResolver packageAssemblyResolver,
             IAssemblyUtility assemblyUtility,
             ILogProvider logProvider)
-	{
-		_resolver = new AssemblyResolver(fileSystem, packageAssemblyResolver,assemblyUtility,logProvider);
-	}
+    {
+    _resolver = new AssemblyResolver(fileSystem, packageAssemblyResolver,assemblyUtility,logProvider);
+    }
 
     public IEnumerable<string> GetAssemblyPaths(string path, bool binariesOnly = false)
     {
-        return _resolver.GetAssemblyPaths(path, binariesOnly).Where(p=>!p.Contains("ScriptCs.Contracts"));
+      return _resolver.GetAssemblyPaths(path, binariesOnly).Where(p=>!p.Contains("ScriptCs.Contracts"));
     }
 }
 
@@ -102,7 +101,7 @@ private class ScriptCsHost
     }
 
     public dynamic Require(string scriptPack) {
-    	return _contexts[scriptPack];
+      return _contexts[scriptPack];
     }
     
     private IEnumerable<string> PreparePackages(IPackageAssemblyResolver packageAssemblyResolver, IPackageInstaller packageInstaller, IEnumerable<IPackageReference> additionalNuGetReferences, IEnumerable<string> localDependencies, ILog logger)
@@ -122,7 +121,7 @@ private class ScriptCsHost
             logger.ErrorFormat("Installation failed: {0}.", e.Message);
         }
         var assemblyNames = packageAssemblyResolver.GetAssemblyNames(workingDirectory);
-		assemblyNames = assemblyNames.Concat(localDependencies);
+        assemblyNames = assemblyNames.Concat(localDependencies);
         return assemblyNames;
     }
 
